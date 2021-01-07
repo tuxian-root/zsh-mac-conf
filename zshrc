@@ -48,9 +48,9 @@ HIST_STAMPS="mm/dd/yyyy"
 # Zsh Plugins
 plugins=(brew osx colored-man-pages last-working-dir) 	# Standard & OSX plugins
 plugins+=(git)                                          # Git
-plugins+=(npm)						                              # JavaScript plugins
-plugins+=(zsh-autosuggestions)				                  # Hide-able autosuggestions
+plugins+=(zsh-autosuggestions)				# Hide-able autosuggestions
 plugins+=(zsh-syntax-highlighting)                      # Highlight terminal commands for correctness on-the-fly
+plugins+=(zsh-nvm)					# zsh based nvm to switch between node versions
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,28 +58,40 @@ source $ZSH/oh-my-zsh.sh
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
-# # Zsh Promt (Bash PS1 equivalent)
-# # Using 256-bit ANSI codes
-# # check section "Up to 256 colors" in https://blog.balthazar-rouberol.com/customizing-your-shell.html
+# To display git branch details
+# https://github.com/ohmyzsh/ohmyzsh/issues/5686
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+# this ret_status is used in PROMT to decide whether to print the git details or not
+local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%}➜ )"
+
+# Zsh Promt (Bash PS1 equivalent)
+# Using 256-bit ANSI codes
+# check section "Up to 256 colors" in https://blog.balthazar-rouberol.com/customizing-your-shell.html
 # To generate online: https://zsh-prompt-generator.site/
-PROMPT="%! ➜ [%F{yellow}%W%f%F{yellow}%t%f] %F{cyan}%~%f %F{white}$%f "
+PROMPT='${ret_status} %! ➜ [%F{yellow}%W%f %F{yellow}%t%f] %F{cyan}%~%f ➜ $(git_prompt_info) %F{white}$%f '
+
 
 #----------------------------------------------------------------------------------------------------------------#
 # User configuration
 #----------------------------------------------------------------------------------------------------------------#
 
-# Aliasing aws_sso to Azure login
-alias aws_sso="aws-azure-login --profile saml"
-
-# Setting default AWS profile
-export AWS_PROFILE=saml
-
-# Dev ssh command
-alias dev="ssh sbaranidharan@dev.mycompany.com"
+# aliasing cat to "pygmentize -g" so that the output will have syntax hightlighted
+# https://dev.to/rogiervandenberg/add-syntax-highlighting-to-cat-in-your-terminal-1kcp
+# https://stackoverflow.com/questions/65579985/zsh-shell-alias
+richcat() {
+    pygmentize -g $1 | nl -b a | less -Rai
+}
 
 # Java switch between different JVMs
 alias java8="export JAVA_HOME=$(/usr/libexec/java_home -v1.8)"
 alias java15="export JAVA_HOME=$(/usr/libexec/java_home -v15.0.1)"
+
+# locate updatedb shortcut
+alias updatedb="sudo /usr/libexec/locate.updatedb"
 
 # Cassandra start & stop commands
 alias cassandrastart='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.cassandra.plist'
