@@ -51,6 +51,10 @@ plugins+=(git)                                          # Git
 plugins+=(zsh-autosuggestions)				# Hide-able autosuggestions
 plugins+=(zsh-syntax-highlighting)                      # Highlight terminal commands for correctness on-the-fly
 plugins+=(zsh-nvm)					# zsh based nvm to switch between node versions
+plugins+=(rand-quote)       # type `quote` to get new quotes - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rand-quote
+# before this you need to run `git clone https://github.com/b4b4r07/enhancd ~/.oh-my-zsh/custom/plugins/enhanced`
+# and `brew install peco`
+source ~/.oh-my-zsh/custom/plugins/enhanced/init.sh
 
 source $ZSH/oh-my-zsh.sh
 
@@ -72,8 +76,7 @@ local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%}➜ )"
 # Using 256-bit ANSI codes
 # check section "Up to 256 colors" in https://blog.balthazar-rouberol.com/customizing-your-shell.html
 # To generate online: https://zsh-prompt-generator.site/
-PROMPT='${ret_status} %! ➜ [%F{yellow}%W%f %F{yellow}%t%f] %F{cyan}%~%f ➜ $(git_prompt_info) %F{white}$%f '
-
+PROMPT='${ret_status} %! %F{white}➜ [%F{white}%F{yellow}%W%f %F{yellow}%t%f] %F{cyan}%~%f ➜ $(git_prompt_info) %F{white}$%f '
 
 #----------------------------------------------------------------------------------------------------------------#
 # User configuration
