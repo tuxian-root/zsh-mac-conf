@@ -49,9 +49,14 @@ HIST_STAMPS="mm/dd/yyyy"
 plugins=(brew osx colored-man-pages last-working-dir) 	# Standard & OSX plugins
 plugins+=(git)                                          # Git
 plugins+=(zsh-autosuggestions)				# Hide-able autosuggestions
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 plugins+=(zsh-syntax-highlighting)                      # Highlight terminal commands for correctness on-the-fly
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 plugins+=(zsh-nvm)					# zsh based nvm to switch between node versions
+# git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 plugins+=(rand-quote)       # type `quote` to get new quotes - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rand-quote
+plugins+=(history-search-multi-word)			# zsh history search --> https://github.com/zdharma/history-search-multi-word
+# cd ~/.oh-my-zsh/custom/plugins && git clone https://github.com/zdharma/history-search-multi-word.git
 # before this you need to run `git clone https://github.com/b4b4r07/enhancd ~/.oh-my-zsh/custom/plugins/enhanced`
 # and `brew install peco`
 source ~/.oh-my-zsh/custom/plugins/enhanced/init.sh
